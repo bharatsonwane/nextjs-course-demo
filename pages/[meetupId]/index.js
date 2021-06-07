@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   client.close()
 
   return {
-    fallback: false,
+    fallback: 'blocking',
     paths: meetups.map(meetup => ({
       params: { meetupId: meetup._id.toString() }
     })),
@@ -76,6 +76,6 @@ export async function getStaticProps(context) {
         description: selectedMeetup.description,
       },
     },
-    // revalidate: 10, // on every 10 second static page will be regenerate on server
+    revalidate: 2, // on every 2 second static page will be regenerate on server
   };
 }
