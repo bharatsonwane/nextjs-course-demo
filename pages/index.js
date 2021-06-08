@@ -45,7 +45,32 @@ export default HomePage;
 
 
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
+//   // fetch data from an API
+//   const client = await MongoClient.connect("mongodb+srv://bharat:K9BpDcZd6wLA3yj@cluster0.eanwv.mongodb.net/meetups?retryWrites=true&w=majority");
+//   const db = client.db();
+//   const meetupsCollection = db.collection("meetups");
+
+//   const meetup = await meetupsCollection.find().toArray()
+
+//   client.close()
+
+//   return {
+//     props: {
+//       meetups: meetup.map(meetup => ({
+//         title: meetup.title,
+//         address: meetup.address,
+//         image: meetup.image,
+//         id: meetup._id.toString()
+//       })),
+//     },
+//     revalidate: 1, // on every 1 second static page will be regenerate on server
+//   };
+// }
+
+
+// // // on every request static page will be regenerate on server side
+export async function getServerSideProps() {
   // fetch data from an API
   const client = await MongoClient.connect("mongodb+srv://bharat:K9BpDcZd6wLA3yj@cluster0.eanwv.mongodb.net/meetups?retryWrites=true&w=majority");
   const db = client.db();
@@ -64,19 +89,16 @@ export async function getStaticProps() {
         id: meetup._id.toString()
       })),
     },
-    revalidate: 1, // on every 1 second static page will be regenerate on server
   };
+
+
+  // const req = context.req
+  // const res = context.res
+
+  // //   // fetch data from an API
+  // return {
+  //   props: {
+  //     meetups: DUMMY_MEETUPS,
+  //   },
+  // };
 }
-
-// // // on every request static page will be regenerate on server side
-// export async function getServerSideProps(context) {
-//   const req = context.req
-//   const res = context.res
-
-//   //   // fetch data from an API
-//   return {
-//     props: {
-//       meetups: DUMMY_MEETUPS,
-//     },
-//   };
-// }

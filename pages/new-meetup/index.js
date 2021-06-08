@@ -5,6 +5,9 @@ import { useRouter } from 'next/router'
 
 import NewMeetupForm from "../../components/meetups/NewMeetupForm";
 
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css';
+
 function NewMeetupPage() {
   const router = useRouter()
 
@@ -21,6 +24,10 @@ function NewMeetupPage() {
     const data = await response.json()
     console.log(data)
 
+    // setTimeout(() => {
+    //   NotificationManager.success("Meetup added successfully.", "", 1000)
+    // }, 500);
+
     router.push('/')
 
   };
@@ -32,6 +39,7 @@ function NewMeetupPage() {
         <meta name="description" content="Add your own meetups and create amazing networking opportunities.!!!" />
       </Head>
       <NewMeetupForm onAddMeetup={addMeetupHandler} />
+      {/* <NotificationContainer /> */}
     </Fragment>
   );
 }
